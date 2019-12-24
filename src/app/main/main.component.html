@@ -1,0 +1,64 @@
+<header>
+    <div>
+        <h1>Akita Books</h1>
+        <p>Powered by Angular 8 &amp; Akita State Management</p>
+    </div>
+   
+</header>
+
+<section class="booksContainer">
+<form (ngSubmit)="addBook(postForm.value)" [formGroup]="postForm">
+         
+   <h2>Add a new book to the collection.</h2>
+   
+   <div class="formcontrol">
+    <label for="name">Title</label>
+    <input type="text" formControlName="name">
+  </div>
+
+  <div class="formcontrol">
+    <label for="author">Author</label>
+    <input type="text" formControlName="author">
+  </div>
+
+  <div class="formcontrol">
+    <label for="description">Content</label>
+    <textarea formControlName="description"></textarea>
+  </div>
+
+  <div class="formcontrol">
+      <label for="genres" class="genres">Choose a Cover</label>
+     <select formControlName="genres" id="genres" multiple>
+         <option>Drama</option>
+         <option>Novel</option>
+         <option>Science Fiction</option>
+     </select>
+  </div>
+
+  <div class="formcontrol">
+    <label for="price" class="price">Price:</label>
+    <input type="number" name="price" id="price" formControlName="price">
+</div>
+  
+  <input type="submit" [disabled]="!postForm.valid" value="Submit">
+  </form>
+
+
+
+
+<div *ngIf="loading$ | async; else posts ">
+    <h1>Loading...</h1>
+</div>
+  
+
+<ng-template #posts>
+      <section class="books">
+        <div *ngFor="let book of books$ | async" class="book">
+            <h2>{{book.name}}</h2>
+            <p>{{book.author}}</p>
+            <a [routerLink]="[ '/book', book.id ]">book details</a>
+        </div>
+
+      </section>
+  </ng-template>
+</section>

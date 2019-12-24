@@ -1,0 +1,54 @@
+
+<div *ngIf="currentBook == null; else book">
+    <h1>Loading...</h1>
+</div>
+  
+
+<ng-template #book>
+      <section class="book">
+        <div>
+            <h2>{{currentBook.name}}</h2>
+            <p>{{currentBook.author}}</p>
+            <p>{{currentBook.description}}</p>
+            <p class="price">${{currentBook.price}}</p>
+        </div>
+
+
+
+        <form (ngSubmit)="editBook(editForm.value)" [formGroup]="editForm">
+         
+            <h2>Create a new post.</h2>
+            <p>Fill the form to add a new post to the database.</p>  
+           
+           <div class="formcontrol">
+            <label for="name">Title</label>
+            <input type="text" formControlName="name">
+          </div>
+        
+          <div class="formcontrol">
+            <label for="author">Author</label>
+            <input type="text" formControlName="author">
+          </div>
+        
+          <div class="formcontrol">
+            <label for="description">Content</label>
+            <textarea formControlName="description"></textarea>
+          </div>
+        
+         
+          <div class="formcontrol">
+            <label for="price" class="price">Price:</label>
+            <input type="number" name="price" id="price" formControlName="price">
+        </div>
+          
+          <input type="submit" [disabled]="!editForm.valid" value="Submit">
+          </form>
+        
+          <button (click)="deleteBook()">Delete</button>
+
+
+    </section>
+
+  
+
+</ng-template>
